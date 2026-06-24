@@ -19,8 +19,9 @@ def search_listings(description: str, size: str | None, max_price: float | None)
     for item in listings:
         if max_price is not None and item["price"] > max_price:
             continue
-        if size is not None and item.get("size", "").upper() != size.upper():
-            continue
+        if size is not None and not size.replace('.', '').isdigit():
+            if item.get("size", "").upper() != size.upper():
+                continue
         searchable = " ".join([
             item.get("title", ""),
             item.get("description", ""),

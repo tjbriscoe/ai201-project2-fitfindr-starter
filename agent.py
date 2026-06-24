@@ -55,19 +55,28 @@ def run_agent(query: str, wardrobe: dict) -> dict:
     session = _new_session(query, wardrobe)
 
     #Regex pattern to parse the size
-    size_match = re.search(r'\b(XXS|XS|S|M|L|XL|XXL)\b', query, re.IGNORECASE)
-    price_match = re.search(r'\$?(\d+(?:\.\d+)?)', query)
+# Match letter sizes OR shoe sizes (5-15) only when preceded by "size"
+    size_match = re.search(
+    r'\b(XXS|XS|S|M|L|XL|XXL)\b|(?:size\s+)(\d+(?:\.\d+)?)',query,  re.IGNORECASE)   
+    price_match = re.search(r'\$(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*(?:dollars?|bucks?)', query, re.IGNORECASE)
 
     size = size_match.group(1).upper() if size_match else None
     max_price = float(price_match.group(1)) if price_match else None
 
     description = query
     if size_match:
-        description = description.replace(size_match.group(0), "")
-    if price_match:
-        description = description.replace(price_match.group(0), "")
 
-    for filler in ["under", "below", "around", "about", "size", "in"]:
+        size = (size_match.group(1) or size_match.group(2))
+        size = size.upper() if size else None
+    else:
+    
+      size = None
+    if price_match:
+        max_price = float(price_match.group(1) or price_match.group(2))
+    else:
+        max_price = None
+
+    for filler in ["under", "below", "around", "about", "size", "in", "size", "good", "condition", "fair", "excellent", "worn", "want", "need"]:
         description = re.sub(rf'\b{filler}\b', "", description, flags=re.IGNORECASE)
     description = " ".join(description.split())
 

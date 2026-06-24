@@ -12,6 +12,20 @@
     "brand": "Levi's",
     "platform": "depop"
   },
+
+  {
+  "id": "listing_038",
+  "title": "Black Track Pants — Baggy Fit",
+  "description": "Classic black track pants in good condition. Slim fit, elastic waist.",
+  "category": "bottoms",
+  "style_tags": ["athletic", "streetwear", "90s", "track"],
+  "size": "L", 
+  "condition": "Good",
+  "price": 24.0,
+  "colors": ["black"],
+  "brand": "unknown",
+  "platform": "Depop"
+},
   {
     "id": "lst_002",
     "title": "Y2K Baby Tee — Butterfly Print",
