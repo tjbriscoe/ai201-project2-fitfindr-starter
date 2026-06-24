@@ -124,6 +124,12 @@ The spec described query parsing as a choice between regex, string splitting, or
 
 ---
 
+## AI Usage 
+
+1. Debugging and finding errors embedded in my code
+ What it priduced: Identification of the root cause — comments at zero indent were acting as a visual reset, causing all subsequent lines to be written outside the function body. Claude also identified that the module-level docstring placement and the Groq client being initialized at import time were contributing to silent import failures.
+2. Implementing the run_agent planning loop
+What it produced: a run_agent() function with regex-based query parsing, the early-exit branch after search_listings, state stored in the session dict at each step, and all three tools called in the correct order on the happy path.
 ## Where to Start
 
 1. **Read `planning.md` and fill it out before writing any code.**
